@@ -15,6 +15,14 @@ function userRoutes(app){
     app.post('/register', urlencodedParser, usersControllers.register, function (req, res){
         res.redirect('/')
     })
+
+    app.get('/login', function(req, res){
+        res.render('login')
+    })
+
+    app.post('/login', urlencodedParser, usersControllers.login, function (req, res){
+        res.redirect('/')
+    })
 }
 
 module.exports = userRoutes
