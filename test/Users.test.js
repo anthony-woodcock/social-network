@@ -63,19 +63,6 @@ describe('Users', function(){
             
         })
 
-        test('login static is called when we post to the login route', function(){
-            var spy = spyOn(User, 'login')
-            var req = { 
-                body: {
-                    emailAddress: 'hello@world.com', 
-                    password: 'password123'
-                }
-            }
-            var res = {}
-            usersControllers.login(req,res)
-            expect(spy).toHaveBeenCalledWith(req.body)
-
-        })
 
         test('register inserts a user with email and password', function(done){
             var user = {
@@ -135,6 +122,24 @@ describe('Users', function(){
                 User.login(user, function(error,result){
                     expect(error).not.toBeTruthy()
                     expect(result).toBeTruthy()
+                    done()
+                })
+            })
+        })
+
+        test('login static creates a session', function(){
+            var req = {
+                body: {
+                    emailAddress: 'hello@world.com', 
+                    password: 'password123'
+                },
+                user: {}
+            }
+            var res = {}
+            
+            User.register(req.body, function(){
+                User.login(req, res, function(){
+                    expect(req.user.session).not.toBeUndefined()
                     done()
                 })
             })
