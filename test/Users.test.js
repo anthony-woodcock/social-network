@@ -81,25 +81,23 @@ describe('Users', function(){
 
         })
 
-        test('register static is called when we post to the register route', function(){
+        test('register static is called when we post to the register route', function () {
             var spy = spyOn(User, 'register')
-
+          
             var req = {
-                body: {
-                    emailAddress: 'hello@world.com', 
-                    password: 'password123',
-                    confirmPassord: 'password123'
-                } 
+              body: {
+                emailAddress: 'hello@world.com',
+                password: 'password123',
+                confirmPassword: 'password123'
+              }
             }
-
-            var res = {
-
-            }
-
-            usersControllers.register(req, res)
-
-            expect(spy).toHaveBeenCalledWith(req.body)
-        })
+            var res = {}
+            var callback = jest.fn()
+          
+            usersControllers.register(req, res, callback)
+          
+            expect(spy).toHaveBeenCalledWith(req.body, callback)
+          })
 
         test('can\`t login if not registered', function(done){
             var user = {
@@ -127,23 +125,23 @@ describe('Users', function(){
             })
         })
 
-        test('login static creates a session', function(){
+        test('login static creates a session', function (done) {
             var req = {
-                body: {
-                    emailAddress: 'hello@world.com', 
-                    password: 'password123'
-                },
-                user: {}
+              body: {
+                emailAddress: 'hello@world.com',
+                password: 'password123'
+              },
+              session: {}
             }
             var res = {}
-            
-            User.register(req.body, function(){
-                User.login(req, res, function(){
-                    expect(req.user.session).not.toBeUndefined()
-                    done()
-                })
+          
+            User.register(req.body, function (error, result) {
+              usersControllers.login(req, res, function () {
+                expect(req.session.user).not.toBeUndefined()
+                done()
+              })
             })
-        })
+          })
 
 
 
