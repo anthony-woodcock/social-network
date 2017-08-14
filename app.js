@@ -1,5 +1,5 @@
 var path = require('path')
-var userRoutes = require('../routes/userRoutes.js')
+var userRoutes = require('./routes/userRoutes.js')
 var sessions = require('client-sessions')
 
 app.use(sessions({
