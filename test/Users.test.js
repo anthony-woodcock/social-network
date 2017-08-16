@@ -116,6 +116,8 @@ describe('Users', function(){
                 emailAddress: 'hello@world.com',
                 password: 'password123'
             }
+            var userClone = Object.assign({}, user)
+
             User.register(user, function(error, result){
                 User.login(user, function(error,result){
                     expect(error).not.toBeTruthy()

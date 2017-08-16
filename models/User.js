@@ -1,5 +1,6 @@
 var mongoose = require('mongoose')
 var validator = require('validator')
+var crypto = require('crypto')
 var UserSchema = new mongoose.Schema({
 
     emailAddress: {
@@ -17,10 +18,22 @@ var UserSchema = new mongoose.Schema({
 
 
     UserSchema.statics = {
+
         login: function(user, callback){
+
+            var hash = crypto.createHash('sha256')
+            hash.update(user.password)
+            user.password = hash.digest('hex')
+
             return User.findOne(user,callback)
         },
+
         register: function(user, callback){
+
+            var hash = crypto.createHash('sha256')
+            hash.update(user.password)
+            user.password = hash.digest('hex')
+
             const newUser = new this(user)
             newUser.save(callback)
         }
