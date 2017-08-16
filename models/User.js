@@ -9,10 +9,15 @@ var UserSchema = new mongoose.Schema({
         validate:[function (value){
             return validator.isEmail(value)
         }, 'Email address isn\'t valid.']
-   },
-    password:{
-        type:String,
-        required:[true, 'Password is required.']
+    },
+    password: String,
+    homeTown: {
+      type: String,
+      required: false
+    },
+    bio: {
+      type: String,
+      required: false
     }
 })
 
@@ -36,7 +41,16 @@ var UserSchema = new mongoose.Schema({
 
             const newUser = new this(user)
             newUser.save(callback)
-        }
+        },
+
+        editProfile: function (user, callback) {
+            User.update(user._id, {
+              $set: {
+                bio: user.bio,
+                homeTown: user.homeTown
+              }
+            }, callback)
+          }
     }
 
 

@@ -161,6 +161,20 @@ describe('Users', function(){
               expect(req.session.user).toBeFalsy()
           })
 
+          test('can edit profile', function () {
+            var user = {
+              emailAddress: 'email@example.com',
+              password: 'password123'
+            }
+          
+            User.register(user, function () {
+              User.editProfile(user, function (error, result) {
+                expect(error).toBeFalsy()
+                expect(result).toBeTruthy()
+              })
+            })
+          })
+
 
 
 })
