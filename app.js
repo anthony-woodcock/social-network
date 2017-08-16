@@ -1,11 +1,6 @@
 var path = require('path')
-var userRoutes = require('./routes/userRoutes.js')
-var sessions = require('client-sessions')
+var usersRoutes = require('./routes/usersRoutes.js')
 
-app.use(sessions({
-    cookiename: 'session',
-    secret: 'qwertyuiop'
-}))
 
 require('dotenv').config({
   path: path.join(__dirname, 'settings.env')
@@ -18,16 +13,21 @@ mongoose.connect(process.env.DATABASE_URL, {
 
 var express = require('express')
 var exphbs = require('express-handlebars')
-
 var app = express()
+var sessions = require('client-sessions')
+
+app.use(sessions({
+    cookieName: 'session',
+    secret: 'qwertyuiop'
+}))
 
 app.engine('.hbs', exphbs({
-        extname: '.hbs',
-        defaultLayout: 'main'
+      extname: '.hbs',
+      defaultLayout: 'main'
     }))
     app.set('view engine', '.hbs')
 
 app.use(express.static('public'))
 
-userRoutes(app)
+usersRoutes(app)
 app.listen(3000)
