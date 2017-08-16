@@ -9,7 +9,7 @@ function usersRoutes(app){
     })
 
     app.get('/register', function(req, res) {
-        res.render('register')
+        res.render('register',{ currentUser: req.session.user })
     })
 
     app.post('/register', urlencodedParser, usersControllers.register, function (req, res){
@@ -17,7 +17,7 @@ function usersRoutes(app){
     })
 
     app.get('/login', function(req, res){
-        res.render('login')
+        res.render('login',{ currentUser: req.session.user })
     })
 
     app.post('/login', urlencodedParser, usersControllers.login, function (req, res){

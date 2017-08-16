@@ -1,0 +1,14 @@
+body {
+    
+}
+
+h1 {
+    color: #32505B;
+    text-align: center;;
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 50px;
+}
+
+#form-input {
+    text-align: center;
+}
