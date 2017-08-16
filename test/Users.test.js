@@ -111,21 +111,21 @@ describe('Users', function(){
             })
         })
 
-        test('can login if registered', function(done){
+        test('can login if registered', function (done) {
             var user = {
-                emailAddress: 'hello@world.com',
-                password: 'password123'
+              emailAddress: 'hello@world.com',
+              password: 'password123'
             }
             var userClone = Object.assign({}, user)
-
-            User.register(user, function(error, result){
-                User.login(user, function(error,result){
-                    expect(error).not.toBeTruthy()
-                    expect(result).toBeTruthy()
-                    done()
-                })
+        
+            User.register(user, function () {
+              User.login(userClone, function (error, result) {
+                expect(error).not.toBeTruthy()
+                expect(result).toBeTruthy()
+                done()
+              })
             })
-        })
+          })
 
         test('login static creates a session', function (done) {
             var req = {
